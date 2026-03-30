@@ -128,7 +128,7 @@ button:hover {
     <input id="training" type="number" placeholder="Training Fees">
   </div>
 
-  <button onclick="submitForm()">Submit</button>
+  <button onclick="submitForm(event)">Submit</button>
 </div>
 
 <!-- Bulk Entry -->
@@ -177,35 +177,34 @@ function openTab(evt, tabName) {
 }
 
 /* Individual Form Submit → Google Sheets */
-async function submitForm() {
-  const data = {
-    name: document.getElementById("name").value,
-    flat: document.getElementById("flat").value,
-    sinking: document.getElementById("sinking").value,
-    repairs: document.getElementById("repairs").value,
-    tax: document.getElementById("tax").value,
-    water: document.getElementById("water").value,
-    electricity: document.getElementById("electricity").value,
-    parking: document.getElementById("parking").value,
-    insurance: document.getElementById("insurance").value,
-    service: document.getElementById("service").value,
-    interest: document.getElementById("interest").value,
-    nonoccupancy: document.getElementById("nonoccupancy").value,
-    training: document.getElementById("training").value
-  };
+async function submitForm(event) {
+
+  const formData = new FormData();
+
+  formData.append("name", document.getElementById("name").value);
+  formData.append("flat", document.getElementById("flat").value);
+  formData.append("sinking", document.getElementById("sinking").value);
+  formData.append("repairs", document.getElementById("repairs").value);
+  formData.append("tax", document.getElementById("tax").value);
+  formData.append("water", document.getElementById("water").value);
+  formData.append("electricity", document.getElementById("electricity").value);
+  formData.append("parking", document.getElementById("parking").value);
+  formData.append("insurance", document.getElementById("insurance").value);
+  formData.append("service", document.getElementById("service").value);
+  formData.append("interest", document.getElementById("interest").value);
+  formData.append("nonoccupancy", document.getElementById("nonoccupancy").value);
+  formData.append("training", document.getElementById("training").value);
 
   try {
     await fetch("https://script.google.com/macros/s/AKfycbxY51XhyShW7keWWbadHRfHQ8HiED8zg5IEBfYmFiEgn4KcNMXmBBb7PBFy_J-8xVApOw/exec", {
       method: "POST",
-      body: JSON.stringify(data),
-      headers: { "Content-Type": "application/json" },
-      mode: "no-cors"
+      body: formData   // ✅ IMPORTANT CHANGE
     });
 
-    alert("Data submitted successfully ✅ Check Google Sheet");
+    alert("✅ Data saved in Google Sheet");
 
   } catch (err) {
-    alert("Error: " + err);
+    alert("❌ Error: " + err);
   }
 }
 
