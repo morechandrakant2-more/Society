@@ -1,153 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Society Charges Form</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Society Management</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to right, #4facfe, #00f2fe);
-      margin: 0;
-      padding: 20px;
-    }
+<style>
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to right, #4facfe, #00f2fe);
+  margin: 0;
+  padding: 20px;
+}
 
-    .container {
-      max-width: 500px;
-      margin: auto;
-      background: #fff;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    }
+.container {
+  max-width: 800px;
+  margin: auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+}
 
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #333;
-    }
+/* Tabs */
+.tabs {
+  display: flex;
+  margin-bottom: 15px;
+}
 
-    label {
-      font-weight: 500;
-      margin-top: 10px;
-      display: block;
-    }
+.tab {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  background: #eee;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-right: 5px;
+}
 
-    input {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      outline: none;
-    }
+.tab.active {
+  background: #4facfe;
+  color: white;
+}
 
-    input:focus {
-      border-color: #4facfe;
-    }
+/* Content */
+.tab-content {
+  display: none;
+}
 
-    .btn {
-      margin-top: 20px;
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      background: #4facfe;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
+.tab-content.active {
+  display: block;
+}
 
-    .btn:hover {
-      background: #007bff;
-    }
+input, textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
 
-    .row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-  </style>
+button {
+  width: 100%;
+  padding: 10px;
+  background: #4facfe;
+  color: white;
+  border: none;
+  border-radius: 6px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+</style>
 </head>
 
 <body>
 
 <div class="container">
-  <h2>Society Charges Form</h2>
+<h2>Society Management</h2>
 
-  <form>
-
-    <label>Name</label>
-    <input type="text" required>
-
-    <label>Flat No</label>
-    <input type="text" required>
-
-    <div class="row">
-      <div>
-        <label>Sinking Fund</label>
-        <input type="number">
-      </div>
-
-      <div>
-        <label>Repairs & Maintenance</label>
-        <input type="number">
-      </div>
-
-      <div>
-        <label>Municipal Tax</label>
-        <input type="number">
-      </div>
-
-      <div>
-        <label>Water Charges</label>
-        <input type="number">
-      </div>
-
-      <div>
-        <label>Electricity Charges</label>
-        <input type="number">
-      </div>
-
-      <div>
-        <label>Parking Charges</label>
-        <input type="number">
-      </div>
-
-      <div>
-        <label>Insurance</label>
-        <input type="number">
-      </div>
-
-      <div>
-        <label>Service Charges</label>
-        <input type="number">
-      </div>
-
-      <div>
-        <label>Interest on Default</label>
-        <input type="number">
-      </div>
-
-      <div>
-        <label>Non-Occupancy Charges</label>
-        <input type="number">
-      </div>
-
-      <div>
-        <label>Training Fees</label>
-        <input type="number">
-      </div>
-    </div>
-
-    <button class="btn" type="submit">Submit</button>
-
-  </form>
+<!-- Tabs -->
+<div class="tabs">
+  <div class="tab active" onclick="openTab(event,'individual')">Individual Entry</div>
+  <div class="tab" onclick="openTab(event,'bulk')">Bulk Entry</div>
+  <div class="tab" onclick="openTab(event,'expenses')">Expenses</div>
 </div>
+
+<!-- Individual Entry -->
+<div id="individual" class="tab-content active">
+  <h3>Individual Entry</h3>
+
+  <input placeholder="Name">
+  <input placeholder="Flat No">
+
+  <div class="row">
+    <input type="number" placeholder="Sinking Fund">
+    <input type="number" placeholder="Repairs & Maintenance">
+    <input type="number" placeholder="Municipal Tax">
+    <input type="number" placeholder="Water Charges">
+    <input type="number" placeholder="Electricity Charges">
+    <input type="number" placeholder="Parking Charges">
+    <input type="number" placeholder="Insurance">
+    <input type="number" placeholder="Service Charges">
+    <input type="number" placeholder="Interest on Default">
+    <input type="number" placeholder="Non-Occupancy Charges">
+    <input type="number" placeholder="Training Fees">
+  </div>
+
+  <button>Submit</button>
+</div>
+
+<!-- Bulk Entry -->
+<div id="bulk" class="tab-content">
+  <h3>Bulk Upload (Excel)</h3>
+
+  <input type="file" id="fileInput" accept=".xlsx,.xls,.csv">
+
+  <button onclick="uploadFile()">Upload</button>
+
+  <p id="status"></p>
+</div>
+
+<!-- Expenses -->
+<div id="expenses" class="tab-content">
+  <h3>Expenses</h3>
+
+  <input placeholder="Expense Name">
+  <input type="number" placeholder="Amount">
+  <input type="date">
+
+  <button>Add Expense</button>
+</div>
+
+</div>
+
+<!-- Excel Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<script>
+function openTab(evt, tabName) {
+  let tabs = document.getElementsByClassName("tab");
+  let contents = document.getElementsByClassName("tab-content");
+
+  for (let i = 0; i < tabs.length; i++) {
+    tabs[i].classList.remove("active");
+    contents[i].classList.remove("active");
+  }
+
+  evt.target.classList.add("active");
+  document.getElementById(tabName).classList.add("active");
+}
+
+/* Upload Excel → Google Sheets */
+async function uploadFile() {
+  const file = document.getElementById('fileInput').files[0];
+
+  if (!file) {
+    alert("Please select a file");
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = async function(e) {
+    const data = new Uint8Array(e.target.result);
+    const workbook = XLSX.read(data, { type: 'array' });
+
+    const sheet = workbook.Sheets[workbook.SheetNames[0]];
+    const jsonData = XLSX.utils.sheet_to_json(sheet);
+
+    document.getElementById("status").innerText = "Uploading...";
+
+    try {
+      await fetch("YOUR_GOOGLE_SCRIPT_URL", {
+        method: "POST",
+        body: JSON.stringify(jsonData),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+
+      document.getElementById("status").innerText = "Upload Successful ✅";
+    } catch (err) {
+      document.getElementById("status").innerText = "Upload Failed ❌";
+    }
+  };
+
+  reader.readAsArrayBuffer(file);
+}
+</script>
 
 </body>
 </html>
