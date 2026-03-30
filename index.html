@@ -195,15 +195,17 @@ async function submitForm() {
   };
 
   try {
-    await fetch("https://script.google.com/macros/s/AKfycbxY51XhyShW7keWWbadHRfHQ8HiED8zg5IEBfYmFiEgn4KcNMXmBBb7PBFy_J-8xVApOw/exec", {
+    const res = await fetch("https://script.google.com/macros/s/AKfycbxY51XhyShW7keWWbadHRfHQ8HiED8zg5IEBfYmFiEgn4KcNMXmBBb7PBFy_J-8xVApOw/exec", {
       method: "POST",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" }
     });
 
-    alert("Data saved successfully ✅");
+    const result = await res.text();
+    alert("Response: " + result);
+
   } catch (err) {
-    alert("Error saving data ❌");
+    alert("Error: " + err);
   }
 }
 
