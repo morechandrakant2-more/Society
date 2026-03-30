@@ -23,6 +23,10 @@ body {
   border-radius: 12px;
 }
 
+h2 {
+  text-align: center;
+}
+
 /* Tabs */
 .tabs {
   display: flex;
@@ -89,7 +93,7 @@ button {
   <div class="tab" onclick="openTab(event,'expenses')">Expenses</div>
 </div>
 
-<!-- Individual Entry -->
+<!-- Individual Entry Tab -->
 <div id="individual" class="tab-content active">
   <h3>Individual Entry</h3>
 
@@ -113,18 +117,18 @@ button {
   <button>Submit</button>
 </div>
 
-<!-- Bulk Entry -->
+<!-- Bulk Entry Tab -->
 <div id="bulk" class="tab-content">
   <h3>Bulk Upload (Excel)</h3>
 
-  <input type="file" id="fileInput" accept=".xlsx,.xls,.csv">
+  <input type="file" accept=".xlsx,.xls,.csv">
 
-  <button onclick="uploadFile()">Upload</button>
+  <button>Upload</button>
 
-  <p id="status"></p>
+  <p>Upload Excel file with society data</p>
 </div>
 
-<!-- Expenses -->
+<!-- Expenses Tab -->
 <div id="expenses" class="tab-content">
   <h3>Expenses</h3>
 
@@ -136,9 +140,6 @@ button {
 </div>
 
 </div>
-
-<!-- Excel Library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
 <script>
 function openTab(evt, tabName) {
@@ -152,44 +153,6 @@ function openTab(evt, tabName) {
 
   evt.target.classList.add("active");
   document.getElementById(tabName).classList.add("active");
-}
-
-/* Upload Excel → Google Sheets */
-async function uploadFile() {
-  const file = document.getElementById('fileInput').files[0];
-
-  if (!file) {
-    alert("Please select a file");
-    return;
-  }
-
-  const reader = new FileReader();
-
-  reader.onload = async function(e) {
-    const data = new Uint8Array(e.target.result);
-    const workbook = XLSX.read(data, { type: 'array' });
-
-    const sheet = workbook.Sheets[workbook.SheetNames[0]];
-    const jsonData = XLSX.utils.sheet_to_json(sheet);
-
-    document.getElementById("status").innerText = "Uploading...";
-
-    try {
-      await fetch("YOUR_GOOGLE_SCRIPT_URL", {
-        method: "POST",
-        body: JSON.stringify(jsonData),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
-
-      document.getElementById("status").innerText = "Upload Successful ✅";
-    } catch (err) {
-      document.getElementById("status").innerText = "Upload Failed ❌";
-    }
-  };
-
-  reader.readAsArrayBuffer(file);
 }
 </script>
 
