@@ -30,6 +30,7 @@ h2 {
 /* Tabs */
 .tabs {
   display: flex;
+  flex-wrap: wrap;
   margin-bottom: 15px;
 }
 
@@ -41,6 +42,7 @@ h2 {
   cursor: pointer;
   border-radius: 8px;
   margin-right: 5px;
+  margin-bottom: 5px;
 }
 
 .tab.active {
@@ -91,9 +93,10 @@ button {
   <div class="tab active" onclick="openTab(event,'individual')">Individual Entry</div>
   <div class="tab" onclick="openTab(event,'bulk')">Bulk Entry</div>
   <div class="tab" onclick="openTab(event,'expenses')">Expenses</div>
+  <div class="tab" onclick="openTab(event,'reports')">Reports</div>
 </div>
 
-<!-- Individual Entry Tab -->
+<!-- Individual Entry -->
 <div id="individual" class="tab-content active">
   <h3>Individual Entry</h3>
 
@@ -117,26 +120,22 @@ button {
   <button>Submit</button>
 </div>
 
-<!-- Bulk Entry Tab -->
+<!-- Bulk Entry -->
 <div id="bulk" class="tab-content">
-  <h3>Bulk Upload (Excel)</h3>
-
-  <input type="file" accept=".xlsx,.xls,.csv">
-
-  <button>Upload</button>
-
-  <p>Upload Excel file with society data</p>
+  <h3>Bulk Upload</h3>
+  <p>Upload Excel functionality will be added here</p>
 </div>
 
-<!-- Expenses Tab -->
+<!-- Expenses (Empty as requested) -->
 <div id="expenses" class="tab-content">
   <h3>Expenses</h3>
+  <p>Expenses module coming soon...</p>
+</div>
 
-  <input placeholder="Expense Name">
-  <input type="number" placeholder="Amount">
-  <input type="date">
-
-  <button>Add Expense</button>
+<!-- Reports (NEW - Empty) -->
+<div id="reports" class="tab-content">
+  <h3>Reports</h3>
+  <p>Reports module coming soon...</p>
 </div>
 
 </div>
@@ -148,6 +147,9 @@ function openTab(evt, tabName) {
 
   for (let i = 0; i < tabs.length; i++) {
     tabs[i].classList.remove("active");
+  }
+
+  for (let i = 0; i < contents.length; i++) {
     contents[i].classList.remove("active");
   }
 
