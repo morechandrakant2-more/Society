@@ -27,7 +27,6 @@ h2 {
   text-align: center;
 }
 
-/* Tabs */
 .tabs {
   display: flex;
   flex-wrap: wrap;
@@ -50,7 +49,6 @@ h2 {
   color: white;
 }
 
-/* Content */
 .tab-content {
   display: none;
 }
@@ -113,31 +111,30 @@ button:hover {
 <div id="individual" class="tab-content active">
   <h3>Individual Entry</h3>
 
-  <input placeholder="Name">
-  <input placeholder="Flat No">
+  <input id="name" placeholder="Name">
+  <input id="flat" placeholder="Flat No">
 
   <div class="row">
-    <input type="number" placeholder="Sinking Fund">
-    <input type="number" placeholder="Repairs & Maintenance">
-    <input type="number" placeholder="Municipal Tax">
-    <input type="number" placeholder="Water Charges">
-    <input type="number" placeholder="Electricity Charges">
-    <input type="number" placeholder="Parking Charges">
-    <input type="number" placeholder="Insurance">
-    <input type="number" placeholder="Service Charges">
-    <input type="number" placeholder="Interest on Default">
-    <input type="number" placeholder="Non-Occupancy Charges">
-    <input type="number" placeholder="Training Fees">
+    <input id="sinking" type="number" placeholder="Sinking Fund">
+    <input id="repairs" type="number" placeholder="Repairs & Maintenance">
+    <input id="tax" type="number" placeholder="Municipal Tax">
+    <input id="water" type="number" placeholder="Water Charges">
+    <input id="electricity" type="number" placeholder="Electricity Charges">
+    <input id="parking" type="number" placeholder="Parking Charges">
+    <input id="insurance" type="number" placeholder="Insurance">
+    <input id="service" type="number" placeholder="Service Charges">
+    <input id="interest" type="number" placeholder="Interest on Default">
+    <input id="nonoccupancy" type="number" placeholder="Non-Occupancy Charges">
+    <input id="training" type="number" placeholder="Training Fees">
   </div>
 
-  <button>Submit</button>
+  <button onclick="submitForm()">Submit</button>
 </div>
 
 <!-- Bulk Entry -->
 <div id="bulk" class="tab-content">
   <h3>Bulk Upload (Excel)</h3>
 
-  <!-- Hidden file input -->
   <input type="file" id="fileInput" accept=".xlsx,.xls,.csv" style="display:none">
 
   <div class="button-group">
@@ -179,13 +176,44 @@ function openTab(evt, tabName) {
   document.getElementById(tabName).classList.add("active");
 }
 
-/* Show selected file name */
+/* Individual Form Submit → Google Sheets */
+async function submitForm() {
+  const data = {
+    name: document.getElementById("name").value,
+    flat: document.getElementById("flat").value,
+    sinking: document.getElementById("sinking").value,
+    repairs: document.getElementById("repairs").value,
+    tax: document.getElementById("tax").value,
+    water: document.getElementById("water").value,
+    electricity: document.getElementById("electricity").value,
+    parking: document.getElementById("parking").value,
+    insurance: document.getElementById("insurance").value,
+    service: document.getElementById("service").value,
+    interest: document.getElementById("interest").value,
+    nonoccupancy: document.getElementById("nonoccupancy").value,
+    training: document.getElementById("training").value
+  };
+
+  try {
+    await fetch("https://script.google.com/macros/s/AKfycbwP8Yv6GwY16ILGEedb1YWP7ZIR86PjsaJvThCOBmH_7XHUWIgD6E2JDDxzPIsN-PCx/exec", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json" }
+    });
+
+    alert("Data saved successfully ✅");
+  } catch (err) {
+    alert("Error saving data ❌");
+  }
+}
+
+/* Bulk File Selection */
 document.getElementById("fileInput").addEventListener("change", function() {
   const file = this.files[0];
   document.getElementById("fileName").innerText = file ? file.name : "No file selected";
 });
 
-/* Submit button action */
+/* Bulk Submit (placeholder for now) */
 function submitFile() {
   const file = document.getElementById("fileInput").files[0];
 
@@ -195,8 +223,6 @@ function submitFile() {
   }
 
   alert("File ready for upload: " + file.name);
-
-  // Next step: integrate with Google Sheets / backend
 }
 </script>
 
