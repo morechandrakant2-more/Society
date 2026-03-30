@@ -195,15 +195,14 @@ async function submitForm() {
   };
 
   try {
-    const res = await fetch("https://script.google.com/macros/s/AKfycbxY51XhyShW7keWWbadHRfHQ8HiED8zg5IEBfYmFiEgn4KcNMXmBBb7PBFy_J-8xVApOw/exec", {
+    await fetch("YOUR_URL", {
       method: "POST",
       body: JSON.stringify(data),
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
       mode: "no-cors"
     });
 
-    const result = await res.text();
-    alert("Response: " + result);
+    alert("Data submitted successfully ✅ Check Google Sheet");
 
   } catch (err) {
     alert("Error: " + err);
