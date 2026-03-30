@@ -59,7 +59,7 @@ h2 {
   display: block;
 }
 
-input, textarea {
+input {
   width: 100%;
   padding: 8px;
   margin-top: 5px;
@@ -67,18 +67,31 @@ input, textarea {
 }
 
 button {
-  width: 100%;
   padding: 10px;
   background: #4facfe;
   color: white;
   border: none;
   border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #007bff;
 }
 
 .row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.button-group button {
+  flex: 1;
 }
 </style>
 </head>
@@ -122,17 +135,26 @@ button {
 
 <!-- Bulk Entry -->
 <div id="bulk" class="tab-content">
-  <h3>Bulk Upload</h3>
-  <p>Upload Excel functionality will be added here</p>
+  <h3>Bulk Upload (Excel)</h3>
+
+  <!-- Hidden file input -->
+  <input type="file" id="fileInput" accept=".xlsx,.xls,.csv" style="display:none">
+
+  <div class="button-group">
+    <button onclick="document.getElementById('fileInput').click()">Browse</button>
+    <button onclick="submitFile()">Submit</button>
+  </div>
+
+  <p id="fileName">No file selected</p>
 </div>
 
-<!-- Expenses (Empty as requested) -->
+<!-- Expenses -->
 <div id="expenses" class="tab-content">
   <h3>Expenses</h3>
   <p>Expenses module coming soon...</p>
 </div>
 
-<!-- Reports (NEW - Empty) -->
+<!-- Reports -->
 <div id="reports" class="tab-content">
   <h3>Reports</h3>
   <p>Reports module coming soon...</p>
@@ -155,6 +177,26 @@ function openTab(evt, tabName) {
 
   evt.target.classList.add("active");
   document.getElementById(tabName).classList.add("active");
+}
+
+/* Show selected file name */
+document.getElementById("fileInput").addEventListener("change", function() {
+  const file = this.files[0];
+  document.getElementById("fileName").innerText = file ? file.name : "No file selected";
+});
+
+/* Submit button action */
+function submitFile() {
+  const file = document.getElementById("fileInput").files[0];
+
+  if (!file) {
+    alert("Please select a file first");
+    return;
+  }
+
+  alert("File ready for upload: " + file.name);
+
+  // Next step: integrate with Google Sheets / backend
 }
 </script>
 
