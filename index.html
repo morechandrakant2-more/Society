@@ -199,6 +199,7 @@ async function submitForm() {
       method: "POST",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" }
+      mode: "no-cors"
     });
 
     const result = await res.text();
